@@ -1,7 +1,7 @@
 import React, { Component  } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import {  ProgressBar, Badge, Card, Image, Col, Row , Container, ListGroup ,Button   } from 'react-bootstrap';
+import { Alert, ProgressBar, Badge, Card, Image, Col, Row , Container, ListGroup ,Button   } from 'react-bootstrap';
 import roundNbr from '../utils/roundNbr'
 import _ from 'lodash';
 
@@ -17,12 +17,25 @@ class QuestionResult extends Component {
     const { authedUser,users,question } = this.props
     //for specifc question...
  
-   // if not login
-   if(!authedUser){
-    this.props.history.push("/")
+    // if not login
+    if(!authedUser){
+     this.props.history.push("/")
     }
+
+    //Wrong question ID
     if (!question) {
-      return<div className='tweet'> <h1 style={{color: 'red'}}>This Question doesn't exist!</h1></div>
+      //redirect to  404P age ?
+      return (
+           <div className='tweet'> 
+            <h1 style={{color: 'dark'}}> 404 Error </h1>
+            <Container>
+            <Alert  variant='danger'>
+                This question you requested doesn't exist!  <br></br>
+                Use Navigation Menu to see what questions are available.
+            </Alert>
+            </Container>
+        </div>
+      )
     }
 
     const id = question.id
