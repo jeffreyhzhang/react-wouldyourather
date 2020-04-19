@@ -3,9 +3,10 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Alert, ProgressBar, Badge, Card, Image, Col, Row , Container, ListGroup ,Button   } from 'react-bootstrap';
 import roundNbr from '../utils/roundNbr'
+import AnswerQuestion from './AnswerQuestion'
 import _ from 'lodash';
 
-class QuestionResult extends Component {
+class Questions extends Component {
 
   //go home
   goHome = () => {
@@ -39,12 +40,13 @@ class QuestionResult extends Component {
     }
 
     const id = question.id
-    //could be undefined...not a single vote yet
+    //if not votes...I need vote ...redirect to vote
     let myvote = users[authedUser].answers[id]
     if(!myvote) {
-      return null
+      return  <AnswerQuestion id={id}/>
     }
  
+
     let { name , avatarURL } = _.find(users, { 'id': question.author }) 
     let opt1 = question.optionOne.votes.length
     let opt2 = question.optionTwo.votes.length
@@ -64,7 +66,6 @@ class QuestionResult extends Component {
               margin:"0",
               height: "100%"
               }}
-            //classsName="v-center"   /does not work???
            >
               <Image 
                 src={ avatarURL}    //src={require(`${avatarURL}`)}  // if relative place under ../image/xx.jpg
@@ -119,5 +120,5 @@ function mapStateToProps ({authedUser, users, questions}, props) {
   }
 }
  
- export default withRouter(connect(mapStateToProps)(QuestionResult))
+ export default withRouter(connect(mapStateToProps)(Questions))
  

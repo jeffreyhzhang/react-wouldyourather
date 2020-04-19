@@ -14,25 +14,6 @@ export default function questions (state = {}, action) {
       let myanswer = action.question.answer
       let autheuser = action.question.authedUser
 
-      // state[qid]  = 
-      //   (myanswer === 'optionOne')? {
-      //     ...state[qid],
-      //         optionOne:   {
-      //         ...state[qid][myanswer],
-      //             votes: [ 
-      //               ...state[qid].optionOne.votes.concat(autheuser)
-      //             ]
-      //       }
-      //   }:{
-      //     ...state[qid],
-      //       optionTwo: {
-      //       ...state[qid][myanswer],
-      //         votes: [ 
-      //           ...state[qid].optionTwo.votes.concat(autheuser)
-      //         ]
-      //   }
-      // }
- 
       state[qid]  = 
          {
           ...state[qid],
@@ -47,7 +28,7 @@ export default function questions (state = {}, action) {
       //just change vote for this question...so redenering...
       return {
         ...state,
-         qid: state[qid]
+         [qid]: state[qid]
       }
      
     case ADD_QUESTION :

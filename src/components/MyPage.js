@@ -23,24 +23,24 @@ class MyPage extends Component {
 
     //order by timestamp, so we see the newer question at top??
     let answeredquestions = users[authedUser].answers 
-    let unasweredquestion = _.filter(questions, (q) => _.indexOf( Object.keys(answeredquestions), q.id) === -1 )
-                      .sort((a,b)=> b.timestamp - a.timestamp);
+    let unasweredquestions = _.filter(questions, (q) =>   !Object.keys(answeredquestions).includes (q.id) )
+                            .sort((a,b)=> b.timestamp - a.timestamp);                
     //if no unanswered question  make answered question tab active tab.
-    let activeTabKey=  unasweredquestion.length >0 ? "UQ" :"AQ"
+    let activeTabKey=  unasweredquestions.length >0 ? "UQ" :"AQ"
      //this will allow user to tab it... otherwise we never get to tab with no questions.
      if(this.state.activeTabKey) activeTabKey= this.state.activeTabKey
    //we want to set the key when click
     return (
       <Tabs defaultActiveKey={activeTabKey}  activeKey={activeTabKey} id="MyPage"  onSelect={(k) => this.setKey(k)} >
             <Tab eventKey="UQ" title="Unanswered">
-                {unasweredquestion.length>0 &&
-                  unasweredquestion.map(q =>   
+                {unasweredquestions.length>0 &&
+                  unasweredquestions.map(q =>   
                     <div key={q.id}>
-                      <BaseElement  unanswered = {true} id = {q.id}/>
+                      <BaseElement  unanswered = {true} id = {q.id}  key={q.id}/>
                     </div>
                   )}
-                  {unasweredquestion.length<1 &&
-                  <Alert variant="success">
+                  {unasweredquestions.length<1 &&
+                    <Alert variant="success">
                       <Alert.Heading> Greate job!</Alert.Heading>
                       <hr />
                       <p className="mb-0">
@@ -52,11 +52,11 @@ class MyPage extends Component {
             <Tab eventKey="AQ" title="Answered">
                 {Object.keys(answeredquestions).map( (q)=> 
                     <div key={q}>
-                      <BaseElement unanswered = {false}  id = {q} />
+                      <BaseElement unanswered = {false}  id = {q}  key={q} />
                     </div>
                 )}
                 {Object.keys(answeredquestions).length<1 &&
-                  <Alert variant="success">
+                    <Alert variant="success">
                       <Alert.Heading> Sorry </Alert.Heading>
                       <hr />
                       <p className="mb-0">

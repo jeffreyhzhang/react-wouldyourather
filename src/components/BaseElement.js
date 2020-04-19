@@ -7,10 +7,7 @@ class BaseElement extends Component {
    
   handleQuestion = (e, id, unanswered) => {
     e.preventDefault()
-    if(unanswered)
-      this.props.history.push(`/answerquestion/${id}`)
-    else
-      this.props.history.push(`/questions/${id}`)
+    this.props.history.push(`/questions/${id}`)
   }
 
   render() {
