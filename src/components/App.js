@@ -10,9 +10,7 @@ import MyPage from './MyPage'
 import LeaderBoard from './LeaderBoard'
 import NewQuestion from './NewQuestion'
 import Questions from './Questions'
-// import QuestionResult from './QuestionResult'
-// import AnswerQuestion from "./AnswerQuestion"
-
+ 
 class App extends Component {
 
   componentDidMount() {
@@ -33,8 +31,6 @@ class App extends Component {
                   <Switch>
                       <Route path='/' exact component={MyPage} />
                       <Route path='/leaderboard' exact component={LeaderBoard} />
-                      {/* <Route path='/questions/:id' exact component={QuestionResult} />
-                      <Route path='/answerquestion/:id' exact component={AnswerQuestion} /> */}
                       <Route path='/questions/:id' exact component={Questions} />
                       <Route path='/add' exact component={NewQuestion} />
                       <Route path='/logout' exact component={Logout} />
